@@ -153,16 +153,27 @@ setup_dotfiles() {
     # Create .config directory if it doesn't exist
     mkdir -p "$HOME/.config"
     
-    # Use stow to symlink configurations
+    # Use stow to symlink configurations (excluding nvim since we clone kickstart.nvim)
     if [ -d ".config" ]; then
-        print_status "Symlinking .config files..."
-        stow -t "$HOME" .config 2>/dev/null || print_warning "Some .config files may already exist"
-    fi
-    
-    if [ -f "starship.toml" ]; then
-        print_status "Symlinking starship.toml..."
-        mkdir -p "$HOME/.config"
-        ln -sf "$PWD/starship.toml" "$HOME/.config/starship.toml"
+        print_status "Symlinking .config files (excluding nvim)..."
+        
+        # Symlink each config directory individually, excluding nvim
+        for config_dir in .config/*/; do
+            if [ -d "$config_dir" ] && [ "$(basename "$config_dir")" != "nvim" ]; then
+                config_name=$(basename "$config_dir")
+                print_status "Symlinking $config_name..."
+                ln -sf "$PWD/$config_dir" "$HOME/.config/" 2>/dev/null || print_warning "$config_name config may already exist"
+            fi
+        done
+        
+        # Symlink individual config files in .config/
+        for config_file in .config/*; do
+            if [ -f "$config_file" ]; then
+                config_name=$(basename "$config_file")
+                print_status "Symlinking $config_name..."
+                ln -sf "$PWD/$config_file" "$HOME/.config/" 2>/dev/null || print_warning "$config_name may already exist"
+            fi
+        done
     fi
 }
 
