@@ -20,7 +20,7 @@ dotfiles/
 
 1. Clone this repository to your home directory:
 ```bash
-git clone <your-repo-url> ~/dotfiles
+git clone https://github.com/renzoorpelli/dotfiles/
 cd ~/dotfiles
 ```
 
