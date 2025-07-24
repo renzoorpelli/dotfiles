@@ -1,8 +1,10 @@
 shell-integration = fish
 command = /opt/homebrew/bin/fish
 
-theme = GruvboxDarkHard
+theme = flexoki-dark
 font-family = Osaka-Mono
+# font-family = FiraCode Nerd Font
+# font-family = Osaka-Mono
 font-size = 18
 font-thicken = true
 keybind = ctrl+n=new_window
