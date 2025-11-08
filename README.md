@@ -8,19 +8,17 @@ Cross-platform dotfiles configuration for macOS and Ubuntu with automated setup.
 dotfiles/
 ├── .config/
 │   ├── ghostty/           # Terminal emulator config
-│   ├── starship.toml      # Shell prompt configuration  
 │   └── fish/              # Fish shell configuration
+├── Brewfile               # Homebrew packages (macOS)
 ├── install.sh             # Automated setup script
 └── README.md              # This file
 ```
-
-**Note**: Neovim configuration uses [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) and is cloned fresh during installation.
 
 ## Installation
 
 1. Clone this repository to your home directory:
 ```bash
-git clone https://github.com/renzoorpelli/dotfiles/
+git clone https://github.com/renzoorpelli/dotfiles ~/dotfiles
 cd ~/dotfiles
 ```
 
@@ -31,14 +29,8 @@ cd ~/dotfiles
 
 The script will:
 - Detect your OS (macOS/Ubuntu)
-- Install required dependencies (Neovim, Starship, Stow, Ghostty, Fish)
-- Clone kickstart.nvim configuration
-- Symlink dotfiles using GNU Stow
-- Set Fish as your default shell
-
-## What I use
-
-- **Ghostty**
-- **Starship**
-- **Fish**
-- **Neovim**
+- **macOS:** Install Homebrew and packages from Brewfile
+- **Ubuntu:** Install Fish shell (other packages need manual installation)
+- Symlink all config files to `~/.config/`
+- Symlink Brewfile to `~/Brewfile` (macOS only)
+- Set Fish as your default shells

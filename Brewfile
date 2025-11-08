@@ -1,0 +1,22 @@
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/cask-fonts"
+
+brew "git"
+brew "node"
+brew "python"
+brew "dotnet"
+brew "rust"
+
+cask "rider"
+cask "pycharm"
+cask "clion"
+cask "datagrip"
+cask "brave-browser"
+cask "ghostty"
+cask "zed"
+cask "cursor"
+cask "visual-studio-code"
+cask "font-jetbrains-mono"
+cask "docker"
+
