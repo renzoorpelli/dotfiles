@@ -1,0 +1,107 @@
+{
+    // editor
+    "editor.mouseWheelZoom": true,
+    "editor.fontSize": 11,
+    "editor.fontFamily": "BerkeleyMono Nerd Font Mono",
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": false,
+    "editor.glyphMargin": false,
+    "editor.lineNumbers": "on",
+    "editor.inlineSuggest.enabled": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.minimap.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.rulers": [
+        150
+    ],
+    "editor.renderWhitespace": "selection",
+    "editor.wordWrap": "off",
+    "editor.smoothScrolling": false,
+    // cursor
+    "editor.cursorBlinking": "solid",
+    "editor.cursorStyle": "block",
+    "editor.cursorSurroundingLines": 5,
+    "editor.autoIndent": "advanced",
+    "breadcrumbs.enabled": true,
+    "breadcrumbs.filePath": "on",
+    // files
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 100,
+    "files.enableTrash": true,
+    "files.hotExit": "off",
+    // telemetry
+    "telemetry.telemetryLevel": "off",
+    "update.mode": "default",
+    // copilot
+    "github.copilot.nextEditSuggestions.allowWhitespaceOnlyChanges": false,
+    "github.copilot.enable": {
+        "*": false,
+        "c++": false,
+        "python": false,
+        "csharp": false
+    },
+    "github.copilot.chat.customOAIModels": {
+        "Kimi-K2-Thinking": {},
+        "Qwen3-Coder-480B-A35B0-Instruct": {}
+    },
+    // git
+    "diffEditor.ignoreTrimWhitespace": false,
+    // terminal
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.fontSize": 12,
+    // debug
+    "debug.inlineValues": "auto",
+    // specific languages
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        },
+        "editor.formatOnPaste": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.trimAutoWhitespace": true
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "[cuda-cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.clang_format_fallbackStyle": "LLVM",
+    "C_Cpp.formatting": "clangFormat",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "chat.viewSessions.orientation": "stacked"
+}

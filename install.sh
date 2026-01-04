@@ -2,54 +2,33 @@
 
 set -e
 
-# Detect OS
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    OS="macos"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    OS="linux"
-else
-    echo "Unsupported OS"
-    exit 1
+if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-echo "Detected OS: $OS"
-
-# Install dependencies
-if [ "$OS" = "macos" ]; then
-    # Install Homebrew
-    if ! command -v brew &> /dev/null; then
-        echo "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    
-    # Install fish
-    if ! command -v fish &> /dev/null; then
-        brew install fish
-    fi
-    
-    # Install packages from Brewfile
-    if [ -f "Brewfile" ]; then
-        echo "Installing packages from Brewfile..."
-        brew bundle --file="$PWD/Brewfile"
-    fi
-    
-    # Symlink Brewfile
-    ln -sf "$PWD/Brewfile" "$HOME/Brewfile"
-elif [ "$OS" = "linux" ]; then
-    # Install fish
-    if ! command -v fish &> /dev/null; then
-        sudo apt-get update
-        sudo apt-get install -y fish
-    fi
+if ! command -v fish &> /dev/null; then
+    brew install fish
 fi
 
-# Symlink config files
-echo "Setting up dotfiles..."
+if [ -f "Brewfile" ]; then
+    echo "Installing packages from Brewfile..."
+    brew bundle --file="$PWD/Brewfile"
+fi
+
+ln -sf "$PWD/Brewfile" "$HOME/Brewfile"
+
 mkdir -p "$HOME/.config"
 
 for config_dir in .config/*/; do
     if [ -d "$config_dir" ]; then
-        ln -sf "$PWD/$config_dir" "$HOME/.config/"
+        config_name=$(basename "$config_dir")
+        # VS Code has a special location on macOS
+        if [ "$config_name" = "Code" ]; then
+            mkdir -p "$HOME/Library/Application Support/Code"
+            ln -sf "$PWD/$config_dir/User" "$HOME/Library/Application Support/Code/User"
+        else
+            ln -sf "$PWD/$config_dir" "$HOME/.config/"
+        fi
     fi
 done
 
@@ -64,4 +43,4 @@ if command -v fish &> /dev/null; then
     fi
 fi
 
-echo "Done! Restart your terminal."
+echo "done"

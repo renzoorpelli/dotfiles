@@ -1,14 +1,17 @@
 # Dotfiles
 
-Cross-platform dotfiles configuration for macOS and Ubuntu with automated setup.
+Personal dotfiles configuration for macOS with automated setup.
 
 ## Structure
 
 ```
 dotfiles/
 ├── .config/
+│   ├── Code/User/         # VS Code configuration
+│   ├── fish/              # Fish shell configuration
 │   ├── ghostty/           # Terminal emulator config
-│   └── fish/              # Fish shell configuration
+│   └── nvim/              # Neovim configuration
+├── .gitignore             # Ignore sensitive and generated files
 ├── Brewfile               # Homebrew packages (macOS)
 ├── install.sh             # Automated setup script
 └── README.md              # This file
@@ -28,9 +31,16 @@ cd ~/dotfiles
 ```
 
 The script will:
-- Detect your OS (macOS/Ubuntu)
-- **macOS:** Install Homebrew and packages from Brewfile
-- **Ubuntu:** Install Fish shell (other packages need manual installation)
+- Install Homebrew (if not already installed)
+- Install Fish shell and packages from Brewfile
 - Symlink all config files to `~/.config/`
-- Symlink Brewfile to `~/Brewfile` (macOS only)
-- Set Fish as your default shells
+- Symlink VS Code config to `~/Library/Application Support/Code/User/`
+- Symlink Brewfile to `~/Brewfile`
+- Set Fish as your default shell
+
+## What I use
+
+- **Ghostty** - Terminal emulator
+- **Fish** - Shell
+- **Neovim** - Primary code editor
+- **VS Code** - Secondary code editor
