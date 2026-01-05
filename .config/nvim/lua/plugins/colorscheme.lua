@@ -1,45 +1,55 @@
 return {
-  { "kepano/flexoki-neovim", name = "flexoki" },
+  {
+    "kepano/flexoki-neovim",
+    opts = {
+      colorscheme = "flexoki"
+    }
+  },
   {
     "craftzdog/solarized-osaka.nvim",
-    lazy = false,
-    priority = 1000,
     opts = {
-      transparent = false,
-      terminal_colors = true,
-    },
+      colorscheme = "solarized-osaka"
+    }
   },
-  { "miikanissi/modus-themes.nvim", priority = 1000 },
+  { "miikanissi/modus-themes.nvim",
+    opts ={
+      colorscheme = "modus"
+    }
+  },
   {
     "datsfilipe/vesper.nvim",
-    priority = 1000,
     opts = {
-      transparent = false,
-      italics = {
-        comments = true,
-        keywords = true,
-        functions = true,
-        strings = true,
-        variables = true,
-      },
+      colorscheme = "vesper"
     },
   },
   {
     "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
+    opts ={
+      colorscheme = "cyberdream"
+    }
+  },
+  {
+    "https://github.com/WTFox/jellybeans.nvim",
     opts = {
-      transparent = false,
-      italic_comments = true,
-      hide_fillchars = false,
-      borderless_telescope = true,
-      terminal_colors = true,
+      colorscheme = "jellybeans",
     },
+  },
+  {
+    "https://github.com/ellisonleao/gruvbox.nvim",
+    opts = {
+      colorscheme = "gruvbox.nvim"
+    }
+  },
+  {
+    "https://github.com/maroozm/moegi-neovim",
+    opts = {
+      colorscheme = "moegi"
+    }
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "cyberdream",
+      colorscheme = "jellybeans-muted"
     },
   },
 }
