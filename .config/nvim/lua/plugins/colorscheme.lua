@@ -2,31 +2,33 @@ return {
   {
     "kepano/flexoki-neovim",
     opts = {
-      colorscheme = "flexoki"
-    }
+      colorscheme = "flexoki",
+    },
   },
   {
     "craftzdog/solarized-osaka.nvim",
-    opts = {
-      colorscheme = "solarized-osaka"
-    }
+    lazy = true,
+    priority = 1000,
+    opts = function()
+      return {
+        transparent = true,
+      }
+    end,
   },
-  { "miikanissi/modus-themes.nvim",
-    opts ={
-      colorscheme = "modus"
-    }
-  },
+  { "miikanissi/modus-themes.nvim", opts = {
+    colorscheme = "modus",
+  } },
   {
     "datsfilipe/vesper.nvim",
     opts = {
-      colorscheme = "vesper"
+      colorscheme = "vesper",
     },
   },
   {
     "scottmckendry/cyberdream.nvim",
-    opts ={
-      colorscheme = "cyberdream"
-    }
+    opts = {
+      colorscheme = "cyberdream",
+    },
   },
   {
     "https://github.com/WTFox/jellybeans.nvim",
@@ -37,19 +39,19 @@ return {
   {
     "https://github.com/ellisonleao/gruvbox.nvim",
     opts = {
-      colorscheme = "gruvbox.nvim"
-    }
+      colorscheme = "gruvbox.nvim",
+    },
   },
   {
     "https://github.com/maroozm/moegi-neovim",
     opts = {
-      colorscheme = "moegi"
-    }
+      colorscheme = "moegi",
+    },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "jellybeans-muted"
+      colorscheme = "solarized-osaka",
     },
   },
 }

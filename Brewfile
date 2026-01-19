@@ -7,6 +7,7 @@ brew "node"
 brew "python"
 brew "dotnet"
 brew "rust"
+brew "fd"
 
 cask "rider"
 cask "pycharm"

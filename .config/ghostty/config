@@ -1,17 +1,34 @@
 shell-integration = fish
 command = /opt/homebrew/bin/fish
 
-theme = flexoki-dark
-font-family = Osaka-Mono
-# font-family = FiraCode Nerd Font
-# font-family = Osaka-Mono
-font-size = 18
-font-thicken = true
-keybind = ctrl+n=new_window
+#theme = jellybeans
+#theme = cyberdream
+#theme = Solarized Dark Higher Contrast
+#theme = flexoki dark
+theme = Solarized Dark Patched
 
+background-opacity = 0.9
+background-blur-radius = 20
+background = #031219
+
+cursor-style = block
+cursor-style-blink = true
+
+#font-family = Menlo
+#font-family = FiraCode Nerd Font
+#font-family = JetBrainsMono Nerd Font
+#font-family = BerkeleyMono Nerd Font Mono
+#font-family  = DejaVuSansM Nerd Font Mono
+#font-family  = PlemolJP35 Console NF
+font-family  = PlemolJP Console NF
+
+font-size = 16
+
+keybind = ctrl+n=new_window
 keybind = ctrl+h=goto_split:left
 keybind = ctrl+j=goto_split:bottom
 keybind = ctrl+k=goto_split:top
+
 keybind = ctrl+l=goto_split:right
 
 # Native splits for local work
@@ -25,7 +42,6 @@ keybind = ctrl+shift+f=toggle_split_zoom
 keybind = ctrl+shift+n=next_tab
 keybind = ctrl+shift+p=previous_tab
 keybind = ctrl+t=new_tab
-keybind = ctrl+w=close_surface
+#keybind = ctrl+w=close_surface
 
 keybind = super+r=reload_config
-window-save-state = always
