@@ -1,0 +1,70 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "preferred_completion_mode": null,
+    "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
+      "provider": "zed.dev",
+      "model": "gpt-5.5",
+    },
+    "model_parameters": [],
+  },
+  "show_edit_predictions": false,
+  "vim_mode": true,
+  //"buffer_font_family": "DejaVuSansM Nerd Font Mono",
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_family": "DejaVuSansM Nerd Font Mono",
+  //"buffer_font_family": "BerkeleyMono Nerd Font Mono",
+  //"ui_font_family": "BerkeleyMono Nerd Font Mono",
+  "ui_font_size": 14,
+  "buffer_font_size": 13,
+  "theme": {
+    "mode": "dark",
+    "light": "Flexoki Light",
+    "dark": "Solarized Dark",
+  },
+  "terminal": {
+    "detect_venv": {
+      "on": {
+        "activate_script": "fish",
+      },
+    },
+  },
+  "telemetry": {
+    "metrics": false,
+  },
+  "format_on_save": "off",
+
+  "languages": {
+    "Python": {
+      "language_servers": [
+        // Enable ty and ruff,
+        // Other built-in servers (basedpyright, pyright, pylsp)
+        // are disabled by being omitted from this list.
+        "ty",
+        "ruff",
+      ],
+    },
+  },
+}

@@ -10,7 +10,9 @@ dotfiles/
 │   ├── Code/User/         # VS Code configuration
 │   ├── fish/              # Fish shell configuration
 │   ├── ghostty/           # Terminal emulator config
-│   └── nvim/              # Neovim configuration
+│   ├── nvim/              # Neovim configuration
+│   ├── opencode/          # Opencode configuration
+│   └── zed/               # Zed editor configuration
 ├── .gitignore             # Ignore sensitive and generated files
 ├── Brewfile               # Homebrew packages (macOS)
 ├── install.sh             # Automated setup script
@@ -43,4 +45,5 @@ The script will:
 - **Ghostty** - Terminal emulator
 - **Fish** - Shell
 - **Neovim** - Primary code editor
-- **VS Code** - Secondary code editor
+- **Zed** - Secondary code editor
+- **VS Code:** - Occasional code editor

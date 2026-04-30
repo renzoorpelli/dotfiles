@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 -- Python LSP configuration
-vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_python_lsp = "pylsp"
 vim.g.lazyvim_python_ruff = "ruff"
 
 -- Editor settings

@@ -1,27 +1,28 @@
 shell-integration = fish
 command = /opt/homebrew/bin/fish
 
-#theme = jellybeans
+#theme = flexoki dark
 #theme = cyberdream
 #theme = Solarized Dark Higher Contrast
 #theme = flexoki dark
 theme = Solarized Dark Patched
 
-background-opacity = 0.9
-background-blur-radius = 20
+#background-opacity = 0.9
+#background-blur-radius = 20
 background = #031219
 
 cursor-style = block
 cursor-style-blink = true
 
-#font-family = Menlo
-#font-family = FiraCode Nerd Font
-#font-family = JetBrainsMono Nerd Font
-#font-family = BerkeleyMono Nerd Font Mono
+#font-family  = Menlo
+#font-family  = FiraCode Nerd Font
+font-family  = JetBrainsMono Nerd Font
+#font-family  = BerkeleyMono Nerd Font Mono
 #font-family  = DejaVuSansM Nerd Font Mono
 #font-family  = PlemolJP35 Console NF
-font-family  = PlemolJP Console NF
-
+#font-family  = PlemolJP Console NF
+#font-family   = AdwaitaMono Nerd Font Regular
+font-feature = -calt, -liga, -dlig
 font-size = 16
 
 keybind = ctrl+n=new_window
@@ -32,11 +33,11 @@ keybind = ctrl+k=goto_split:top
 keybind = ctrl+l=goto_split:right
 
 # Native splits for local work
-keybind = ctrl+shift+h=new_split:left
-keybind = ctrl+shift+j=new_split:down
-keybind = ctrl+shift+k=new_split:up
-keybind = ctrl+shift+l=new_split:right
-keybind = ctrl+shift+f=toggle_split_zoom
+keybind = command+shift+h=new_split:left
+keybind = command+shift+j=new_split:down
+keybind = command+shift+k=new_split:up
+keybind = command+shift+l=new_split:right
+keybind = command+shift+f=toggle_split_zoom
 
 # Native tab navigation
 keybind = ctrl+shift+n=next_tab
@@ -45,3 +46,7 @@ keybind = ctrl+t=new_tab
 #keybind = ctrl+w=close_surface
 
 keybind = super+r=reload_config
+
+# Window
+window-padding-x = 12
+window-padding-y = 12

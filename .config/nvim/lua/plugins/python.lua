@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      python_lsp = "pyright",
+      python_lsp = "pylsp",
       python_ruff = "ruff",
     },
   },
@@ -10,14 +10,14 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        pyright = {
+        pylsp = {
           settings = {
-            python = {
-              analysis = {
-                autoSearchPaths = true,
-                diagnosticMode = "workspace",
-                useLibraryCodeForTypes = true,
-                typeCheckingMode = "basic",
+            pylsp = {
+              plugins = {
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                mccabe = { enabled = false },
+                ruff = { enabled = true },
               },
             },
           },

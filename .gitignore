@@ -28,6 +28,12 @@ History/
 .config/nvim/.lazy/
 .config/nvim/lazy-lock.json
 
+.config/zed/conversations/
+.config/zed/prompts/
+.config/zed/themes/
+.config/zed/*.db
+.config/zed/embeddings/
+
 *.swp
 *.swo
 *~
