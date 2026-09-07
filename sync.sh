@@ -24,7 +24,7 @@ fi
 
 if ! "$brew_command" bundle check --file="$SCRIPT_DIR/Brewfile" >/dev/null 2>&1; then
     echo "Installing missing packages from Brewfile..."
-    "$brew_command" bundle install --no-upgrade --file="$SCRIPT_DIR/Brewfile"
+    "$brew_command" bundle install --upgrade --file="$SCRIPT_DIR/Brewfile"
 else
     echo "Homebrew packages are already up to date."
 fi
