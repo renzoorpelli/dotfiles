@@ -24,10 +24,12 @@ fi
 
 if ! "$brew_command" bundle check --file="$SCRIPT_DIR/Brewfile" >/dev/null 2>&1; then
     echo "Installing missing packages from Brewfile..."
-    "$brew_command" bundle install --file="$SCRIPT_DIR/Brewfile"
+    "$brew_command" bundle install --no-upgrade --file="$SCRIPT_DIR/Brewfile"
 else
     echo "Homebrew packages are already up to date."
 fi
+
+echo "Homebrew sync complete."
 
 BACKUP_DIR=""
 
@@ -99,10 +101,13 @@ fi
 
 fish_path=$(command -v fish || true)
 if [ -n "$fish_path" ]; then
+    echo "Configuring Fish as the default shell..."
     if ! grep -qF "$fish_path" /etc/shells 2>/dev/null; then
+        echo "Administrator password may be requested to update /etc/shells."
         echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
     fi
     if [ "${SHELL:-}" != "$fish_path" ]; then
+        echo "Changing the default shell with chsh..."
         chsh -s "$fish_path"
     fi
 fi
