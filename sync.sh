@@ -22,6 +22,24 @@ else
     fi
 fi
 
+for tap in anomalyco/tap hashicorp/tap; do
+    if ! "$brew_command" tap-info "$tap" >/dev/null 2>&1; then
+        "$brew_command" tap "$tap"
+    fi
+    "$brew_command" trust --tap "$tap"
+done
+
+pi_path="$($brew_command --prefix)/bin/pi"
+if [ -L "$pi_path" ]; then
+    pi_target=$(readlink "$pi_path" || true)
+    case "$pi_target" in
+        *@earendil-works/pi-coding-agent*)
+            echo "Removing the previous npm Pi link before Homebrew links pi."
+            rm "$pi_path"
+            ;;
+    esac
+fi
+
 if ! "$brew_command" bundle check --file="$SCRIPT_DIR/Brewfile" >/dev/null 2>&1; then
     echo "Installing missing packages from Brewfile..."
     "$brew_command" bundle install --upgrade --file="$SCRIPT_DIR/Brewfile"
@@ -101,14 +119,17 @@ fi
 
 fish_path=$(command -v fish || true)
 if [ -n "$fish_path" ]; then
-    echo "Configuring Fish as the default shell..."
-    if ! grep -qF "$fish_path" /etc/shells 2>/dev/null; then
-        echo "Administrator password may be requested to update /etc/shells."
-        echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
-    fi
-    if [ "${SHELL:-}" != "$fish_path" ]; then
-        echo "Changing the default shell with chsh..."
-        chsh -s "$fish_path"
+    if ! grep -qF "$fish_path" /etc/shells 2>/dev/null || [ "${SHELL:-}" != "$fish_path" ]; then
+        echo "Configuring Fish as the default shell..."
+        echo "Administrator password may be requested once."
+        sudo -v
+
+        if ! grep -qF "$fish_path" /etc/shells 2>/dev/null; then
+            echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
+        fi
+        if [ "${SHELL:-}" != "$fish_path" ]; then
+            sudo chsh -s "$fish_path" "$USER"
+        fi
     fi
 fi
 
