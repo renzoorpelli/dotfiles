@@ -22,11 +22,18 @@ else
     fi
 fi
 
+failed_dependencies=()
+
 for tap in anomalyco/tap hashicorp/tap; do
     if ! "$brew_command" tap-info "$tap" >/dev/null 2>&1; then
-        "$brew_command" tap "$tap"
+        if ! "$brew_command" tap "$tap"; then
+            failed_dependencies+=("tap:$tap")
+            continue
+        fi
     fi
-    "$brew_command" trust --tap "$tap"
+    if ! "$brew_command" trust --tap "$tap"; then
+        failed_dependencies+=("tap:$tap")
+    fi
 done
 
 pi_path="$($brew_command --prefix)/bin/pi"
@@ -40,12 +47,32 @@ if [ -L "$pi_path" ]; then
     esac
 fi
 
-if ! "$brew_command" bundle check --file="$SCRIPT_DIR/Brewfile" >/dev/null 2>&1; then
-    echo "Installing missing packages from Brewfile..."
-    "$brew_command" bundle install --upgrade --file="$SCRIPT_DIR/Brewfile"
-else
-    echo "Homebrew packages are already up to date."
-fi
+install_dependency() {
+    local kind=$1
+    local name=$2
+
+    if "$brew_command" list "--$kind" "$name" >/dev/null 2>&1; then
+        echo "Upgrading $kind $name..."
+        if ! "$brew_command" upgrade "--$kind" "$name"; then
+            failed_dependencies+=("$name")
+        fi
+    else
+        echo "Installing $kind $name..."
+        if ! "$brew_command" install "--$kind" "$name"; then
+            failed_dependencies+=("$name")
+        fi
+    fi
+}
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+while IFS= read -r formula; do
+    [ -n "$formula" ] && install_dependency formula "$formula"
+done < <("$brew_command" bundle list --formula --file="$SCRIPT_DIR/Brewfile")
+
+while IFS= read -r cask; do
+    [ -n "$cask" ] && install_dependency cask "$cask"
+done < <("$brew_command" bundle list --cask --file="$SCRIPT_DIR/Brewfile")
 
 echo "Homebrew sync complete."
 
@@ -134,3 +161,9 @@ if [ -n "$fish_path" ]; then
 fi
 
 echo "Dotfiles synced from $SCRIPT_DIR"
+
+if [ "${#failed_dependencies[@]}" -gt 0 ]; then
+    echo "The following dependencies could not be installed or upgraded:" >&2
+    printf '  %s\n' "${failed_dependencies[@]}" >&2
+    exit 1
+fi
