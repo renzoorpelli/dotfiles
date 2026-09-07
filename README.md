@@ -36,14 +36,15 @@ then run `./sync.sh` again.
 The script will:
 - Install Homebrew (if not already installed)
 - Install packages from Brewfile, including Fish, Tmux, Ghostty and VSCodium
-- Symlink all config files to `~/.config/`
-- Symlink tmux configuration to `~/.tmux.conf`
-- Symlink VSCodium config to `~/Library/Application Support/VSCodium/User/`
-- Symlink Brewfile to `~/Brewfile`
+- Copy managed config files to `~/.config/`
+- Copy tmux configuration to `~/.tmux.conf`
+- Copy VSCodium settings to `~/Library/Application Support/VSCodium/User/`
+- Back up replaced configurations to `~/.dotfiles-backups/`
 - Set Fish as your default shell
 
-The installer removes only obsolete configuration directories for applications
-no longer managed by this repository. It does not uninstall applications.
+The sync script does not create symlinks. The repository remains independent
+from files edited in `$HOME`, and obsolete configurations are backed up rather
+than deleted. It does not uninstall applications.
 
 ## What I use
 

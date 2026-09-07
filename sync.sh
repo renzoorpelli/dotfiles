@@ -22,31 +22,80 @@ else
     fi
 fi
 
-if [ -f "$SCRIPT_DIR/Brewfile" ]; then
-    echo "Installing packages from Brewfile..."
-    "$brew_command" bundle --file="$SCRIPT_DIR/Brewfile"
+if ! "$brew_command" bundle check --file="$SCRIPT_DIR/Brewfile" >/dev/null 2>&1; then
+    echo "Installing missing packages from Brewfile..."
+    "$brew_command" bundle install --file="$SCRIPT_DIR/Brewfile"
+else
+    echo "Homebrew packages are already up to date."
 fi
 
-ln -sfn "$SCRIPT_DIR/Brewfile" "$HOME/Brewfile"
+BACKUP_DIR=""
+
+backup_path() {
+    local path=$1
+
+    if [ -z "$BACKUP_DIR" ]; then
+        mkdir -p "$HOME/.dotfiles-backups"
+        BACKUP_DIR=$(mktemp -d "$HOME/.dotfiles-backups/backup.XXXXXX")
+        echo "Backing up existing configurations to $BACKUP_DIR"
+    fi
+
+    mv "$path" "$BACKUP_DIR/$(basename "$path")"
+}
+
+sync_path() {
+    local source=$1
+    local destination=$2
+    local needs_sync=1
+
+    if [ -L "$destination" ]; then
+        needs_sync=1
+    elif [ -d "$source" ] && [ -d "$destination" ]; then
+        if diff -rq "$source" "$destination" >/dev/null 2>&1; then
+            needs_sync=0
+        fi
+    elif [ -f "$source" ] && [ -f "$destination" ]; then
+        if cmp -s "$source" "$destination"; then
+            needs_sync=0
+        fi
+    fi
+
+    if [ "$needs_sync" -eq 0 ]; then
+        return
+    fi
+
+    if [ -e "$destination" ] || [ -L "$destination" ]; then
+        backup_path "$destination"
+    fi
+
+    mkdir -p "$(dirname "$destination")"
+    if [ -d "$source" ]; then
+        cp -R "$source" "$destination"
+    else
+        cp "$source" "$destination"
+    fi
+}
 
 mkdir -p "$HOME/.config"
 
-for config_name in fish ghostty; do
-    rm -rf "$HOME/.config/$config_name"
-    ln -s "$SCRIPT_DIR/.config/$config_name" "$HOME/.config/$config_name"
-done
+sync_path "$SCRIPT_DIR/.config/fish" "$HOME/.config/fish"
+sync_path "$SCRIPT_DIR/.config/ghostty" "$HOME/.config/ghostty"
+sync_path "$SCRIPT_DIR/.config/VSCodium/User/settings.json" \
+    "$HOME/Library/Application Support/VSCodium/User/settings.json"
+sync_path "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
 
-rm -rf "$HOME/.tmux.conf"
-ln -s "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
-
-# Remove configurations for applications no longer managed by this repo.
+# Preserve old configurations instead of deleting them without a backup.
 for obsolete_config in Code helix nvim zed; do
-    rm -rf "$HOME/.config/$obsolete_config"
+    obsolete_path="$HOME/.config/$obsolete_config"
+    if [ -e "$obsolete_path" ] || [ -L "$obsolete_path" ]; then
+        backup_path "$obsolete_path"
+    fi
 done
 
-mkdir -p "$HOME/Library/Application Support/VSCodium"
-rm -rf "$HOME/Library/Application Support/VSCodium/User"
-ln -s "$SCRIPT_DIR/.config/VSCodium/User" "$HOME/Library/Application Support/VSCodium/User"
+# Remove the legacy Brewfile symlink. Homebrew reads the repository directly.
+if [ -L "$HOME/Brewfile" ]; then
+    rm "$HOME/Brewfile"
+fi
 
 fish_path=$(command -v fish || true)
 if [ -n "$fish_path" ]; then
