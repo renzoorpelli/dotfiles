@@ -24,15 +24,15 @@ History/
 **/*.env
 .env
 .env.*
-
-.config/nvim/.lazy/
-.config/nvim/lazy-lock.json
-
-.config/zed/conversations/
-.config/zed/prompts/
-.config/zed/themes/
-.config/zed/*.db
-.config/zed/embeddings/
+.envrc
+.npmrc
+.netrc
+.aws/
+**/fish_variables
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+*.p12
 
 *.swp
 *.swo

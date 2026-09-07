@@ -1,27 +1,41 @@
 shell-integration = fish
-command = /opt/homebrew/bin/fish
 
-#theme = flexoki dark
-#theme = cyberdream
-#theme = Solarized Dark Higher Contrast
-#theme = flexoki dark
-theme = Solarized Dark Patched
+# >>> themes
+#theme  = flexoki dark
+#theme  = Solarized Dark Higher Contrast
+#theme  = flexoki dark
+#theme  = Solarized Dark Patched
+#theme  = One Dark
+#theme 	= One Double Dark
+#theme  = gruvbox dark
+#theme  = Vesper
+#theme  = Jellybeans
+#theme  = Nvim Dark
+#theme = Vesper
+theme = Rose Pine
+# <<< themes
 
-#background-opacity = 0.9
+#background = #031219  -- Solarized
+background = #0d0c0c
+background-opacity = 0.95
 #background-blur-radius = 20
-background = #031219
 
 cursor-style = block
 cursor-style-blink = true
 
+#font-family  = Monaco
 #font-family  = Menlo
+#font-family  = Source Code Pro
 #font-family  = FiraCode Nerd Font
-font-family  = JetBrainsMono Nerd Font
+#font-family  = UbuntuSansMono Nerd Font Propo
+font-family  = UbuntuSansMono Nerd Font
+#font-family  = UbuntuMono Nerd Font
 #font-family  = BerkeleyMono Nerd Font Mono
 #font-family  = DejaVuSansM Nerd Font Mono
-#font-family  = PlemolJP35 Console NF
+#font-family   = PlemolJP35 Console NF
 #font-family  = PlemolJP Console NF
-#font-family   = AdwaitaMono Nerd Font Regular
+#font-family  = AdwaitaMono Nerd Font Regular
+
 font-feature = -calt, -liga, -dlig
 font-size = 16
 
