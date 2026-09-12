@@ -80,7 +80,9 @@ vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Aument
 
 -- Ventanas.
 vim.keymap.set('n', '<leader>-', '<C-W>s', { desc = 'Split abajo', remap = true })
-vim.keymap.set('n', '<leader>|', '<C-W>v', { desc = 'Split a la derecha', remap = true })
+vim.keymap.set('n', '<leader>\\', '<C-W>v', { desc = 'Split a la derecha', remap = true })
+vim.keymap.set('n', '<Tab>', '<C-w>w', { desc = 'Siguiente ventana' })
+vim.keymap.set('n', '<S-Tab>', '<C-w>W', { desc = 'Ventana anterior' })
 vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Cerrar ventana', remap = true })
 vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'Archivo nuevo' })
 vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Salir de todo' })
@@ -95,6 +97,27 @@ end
 vim.keymap.set({ 'n', 't' }, '<C-/>', open_terminal, { desc = 'Terminal' })
 vim.keymap.set({ 'n', 't' }, '<C-_>', open_terminal, { desc = 'Terminal' })
 vim.keymap.set('n', '<leader>ft', open_terminal, { desc = 'Terminal' })
+
+-- Compilar segun el lenguaje; los errores van al quickfix.
+local compilers = {
+  go = { cmd = 'go build', efm = 'go' },
+  rust = { cmd = 'cargo build', efm = 'cargo' },
+  c = { cmd = 'gcc % -o %<', efm = 'gcc' },
+  cpp = { cmd = 'g++ % -o %<', efm = 'gcc' },
+  typescript = { cmd = 'tsc --noEmit', efm = 'tsc' },
+}
+vim.keymap.set('n', '<leader>c', function()
+  local spec = compilers[vim.bo.filetype]
+  if not spec then
+    vim.notify('Sin compilador configurado para ' .. (vim.bo.filetype ~= '' and vim.bo.filetype or 'este archivo'), vim.log.levels.WARN)
+    return
+  end
+  vim.cmd.write()
+  vim.cmd('compiler! ' .. spec.efm)
+  vim.o.makeprg = spec.cmd
+  vim.cmd('silent make')
+  if #vim.fn.getqflist() > 0 then vim.cmd('copen') end
+end, { desc = '[C]ompilar' })
 
 -- Navegacion de diagnosticos.
 local diagnostic_goto = function(next, severity)

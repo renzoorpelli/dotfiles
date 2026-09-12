@@ -11,6 +11,7 @@ Leader = Espacio.
   Space gs        archivos con cambios / pendientes de commit
   Space gL        historial de commits
   Space f         formatear el buffer
+  Space c         compilar (errores al quickfix)
   grn             renombrar el simbolo bajo el cursor
   grd / grr       ir a definicion / ver referencias
   K               documentacion del simbolo (hover)
@@ -106,8 +107,14 @@ Leader = Espacio.
   Ctrl h/j/k/l    mover foco
   Ctrl flechas    redimensionar
   Space -         split abajo
-  Space |         split a la derecha
+  Space \         split a la derecha
+  Tab / Shift-Tab siguiente / anterior ventana
   Space wd        cerrar ventana
+
+## Compilar
+  Space c   compila el archivo actual segun el lenguaje
+            (go build, cargo build, gcc/g++, tsc --noEmit).
+            Los errores se abren en el quickfix.
 
 ## Edicion
   Ctrl s         guardar
