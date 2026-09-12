@@ -1,14 +1,14 @@
--- Colorscheme: vague (transparente en terminal, opaco en Neovide).
+-- Colorscheme: rose-pine-moon, fondos transparentes; StatusLine conserva el color del tema.
 
-vim.pack.add { 'https://github.com/vague-theme/vague.nvim' }
+vim.pack.add { 'https://github.com/rose-pine/neovim' }
 
-require('vague').setup {
-  transparent = vim.g.neovide == nil,
+require('rose-pine').setup {
+  variant = 'moon',
+  styles = { transparency = true },
+  highlight_groups = {
+    StatusLine = { bg = 'surface' },
+    StatusLineNC = { bg = 'surface', blend = 60 },
+  },
 }
 
-vim.cmd.colorscheme 'vague'
-
--- Para volver a rose-pine:
---   vim.pack.add { 'https://github.com/rose-pine/neovim' }
---   require('rose-pine').setup { variant = 'moon', styles = { transparency = vim.g.neovide == nil } }
---   vim.cmd.colorscheme 'rose-pine-moon'
+vim.cmd.colorscheme 'rose-pine-moon'
