@@ -1,0 +1,46 @@
+#!/bin/sh
+# cheat - consulta el cheatsheet de Neovim en la terminal.
+#
+# Uso:
+#   cheat              muestra todo el cheatsheet
+#   cheat git lsp      muestra solo las lineas que matcheen "git" o "lsp"
+#
+# El contenido vive en ~/.config/nvim/CHEATSHEET.md
+# Renderer: glow si esta, si no bat, si no less -R.
+
+set -u
+
+file="${NVIM_CHEATSHEET:-$HOME/.config/nvim/CHEATSHEET.md}"
+
+if [ ! -f "$file" ]; then
+  printf 'cheat: no encuentro %s\n' "$file" >&2
+  exit 1
+fi
+
+render() {
+  if command -v glow >/dev/null 2>&1; then
+    glow -p -s dark -
+  elif command -v batcat >/dev/null 2>&1; then
+    batcat --style=plain --paging=always --language=markdown -
+  elif command -v bat >/dev/null 2>&1; then
+    bat --style=plain --paging=always --language=markdown -
+  else
+    less -R
+  fi
+}
+
+if [ "$#" -gt 0 ]; then
+  pat=$(printf '%s|' "$@")
+  pat=${pat%|}
+  out=$(awk -v re="$pat" '
+    BEGIN { RS = ""; ORS = "\n\n" }
+    tolower($0) ~ tolower(re) { print }
+  ' "$file")
+  if [ -z "$out" ]; then
+    printf 'cheat: sin resultados para: %s\n' "$*" >&2
+    exit 1
+  fi
+  printf '%s\n' "$out" | render
+else
+  render <"$file"
+fi

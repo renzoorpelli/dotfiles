@@ -130,9 +130,16 @@ sync_path "$SCRIPT_DIR/.config/ghostty" "$HOME/.config/ghostty"
 sync_path "$SCRIPT_DIR/.config/VSCodium/User/settings.json" \
     "$HOME/Library/Application Support/VSCodium/User/settings.json"
 sync_path "$SCRIPT_DIR/.tmux.conf" "$HOME/.tmux.conf"
+sync_path "$SCRIPT_DIR/.config/nvim" "$HOME/.config/nvim"
+sync_path "$SCRIPT_DIR/.local/bin/cheat" "$HOME/.local/bin/cheat"
+
+if command -v tmux >/dev/null 2>&1 && tmux has-session 2>/dev/null; then
+    echo "Reloading tmux configuration..."
+    tmux source-file "$HOME/.tmux.conf"
+fi
 
 # Preserve old configurations instead of deleting them without a backup.
-for obsolete_config in Code helix nvim zed; do
+for obsolete_config in Code helix zed; do
     obsolete_path="$HOME/.config/$obsolete_config"
     if [ -e "$obsolete_path" ] || [ -L "$obsolete_path" ]; then
         backup_path "$obsolete_path"

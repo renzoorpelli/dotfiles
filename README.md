@@ -10,6 +10,9 @@ dotfiles/
 │   ├── VSCodium/User/     # VSCodium configuration
 │   ├── fish/              # Fish shell configuration
 │   ├── ghostty/           # Ghostty terminal config
+│   ├── nvim/              # Neovim configuration
+├── .local/
+│   └── bin/cheat          # Neovim cheatsheet viewer
 ├── .tmux.conf              # Tmux configuration
 ├── .gitignore             # Ignore sensitive and generated files
 ├── Brewfile               # Homebrew packages (macOS)
@@ -36,7 +39,8 @@ then run `./sync.sh` again.
 The script will:
 - Install Homebrew (if not already installed)
 - Install packages from Brewfile, including Fish, Tmux, Ghostty and VSCodium
-- Copy managed config files to `~/.config/`
+- Copy managed config files to `~/.config/` (Fish, Ghostty, Neovim)
+- Copy the `cheat` helper to `~/.local/bin/`
 - Copy tmux configuration to `~/.tmux.conf`
 - Copy VSCodium settings to `~/Library/Application Support/VSCodium/User/`
 - Back up replaced configurations to `~/.dotfiles-backups/`
@@ -50,6 +54,8 @@ than deleted. It does not uninstall applications.
 
 - **Ghostty** - Terminal emulator
 - **Fish** - Shell
+- **Neovim** - Text editor (terminal)
+- **Neovide** - Neovim GUI
 - **VSCodium** - Code editor
 - **Tmux** - Terminal multiplexer
 - **MacShot** - Screenshot and screen recording tool

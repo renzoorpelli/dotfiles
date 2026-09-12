@@ -9,6 +9,10 @@ brew "fish"
 brew "git"
 brew "tmux"
 
+# Editors
+brew "neovim"
+cask "neovide-app"
+
 # Security and environment
 brew "age"
 brew "direnv"
