@@ -1,9 +1,6 @@
--- LSP: mason + nvim-lspconfig + fidget, y formateo con conform.
-
 vim.pack.add { 'https://github.com/j-hui/fidget.nvim' }
 require('fidget').setup {}
 
--- Keymaps cuando un LSP se attacha al buffer.
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
   callback = function(event)
@@ -46,7 +43,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- Servers habilitados. mason los instala si faltan.
 ---@type table<string, vim.lsp.Config>
 local servers = {
   clangd = {},
@@ -72,7 +68,6 @@ local servers = {
         },
       })
     end,
-    ---@type lspconfig.settings.lua_ls
     settings = {
       Lua = { format = { enable = false } },
     },
@@ -95,18 +90,9 @@ for name, server in pairs(servers) do
   vim.lsp.enable(name)
 end
 
--- Formateo.
 vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
 require('conform').setup {
   notify_on_error = false,
-  format_on_save = function(bufnr)
-    local enabled_filetypes = {
-      -- lua = true,
-      -- python = true,
-    }
-    if enabled_filetypes[vim.bo[bufnr].filetype] then return { timeout_ms = 500 } end
-    return nil
-  end,
   default_format_opts = { lsp_format = 'fallback' },
   formatters_by_ft = {
     lua = { 'stylua' },

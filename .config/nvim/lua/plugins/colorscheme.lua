@@ -1,5 +1,3 @@
--- Colorscheme: rose-pine-moon, fondos transparentes; StatusLine conserva el color del tema.
-
 vim.pack.add { 'https://github.com/rose-pine/neovim' }
 
 require('rose-pine').setup {

@@ -1,5 +1,3 @@
--- Fuzzy finder: telescope.nvim (archivos, grep, LSP, etc).
-
 local telescope_plugins = {
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/nvim-telescope/telescope.nvim',
@@ -12,7 +10,7 @@ vim.pack.add(telescope_plugins)
 
 require('telescope').setup {
   defaults = {
-    -- Sin treesitter en el preview (fallback a regex). Evita el crash de ts_highlighter.
+    -- No treesitter in the preview (falls back to regex). Avoids the ts_highlighter crash.
     preview = { treesitter = false },
   },
   extensions = {
@@ -27,12 +25,12 @@ local builtin = require 'telescope.builtin'
 local root = require('config.util').root
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-vim.keymap.set('n', '<leader>sf', function() builtin.find_files { cwd = root() } end, { desc = '[S]earch [F]iles (raiz del proyecto)' })
+vim.keymap.set('n', '<leader>sf', function() builtin.find_files { cwd = root() } end, { desc = '[S]earch [F]iles (project root)' })
 vim.keymap.set('n', '<leader>sF', function()
   local dir = vim.fn.expand '%:p:h'
   if dir == '' then dir = vim.fn.getcwd() end
   builtin.find_files { cwd = dir }
-end, { desc = '[S]earch [F]iles (directorio actual)' })
+end, { desc = '[S]earch [F]iles (current directory)' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -42,7 +40,6 @@ vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Fi
 vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = 'Find existing buffers' })
 
--- Pickers de LSP cuando un server se attacha.
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
   callback = function(event)
@@ -61,21 +58,19 @@ vim.keymap.set('n', '<leader>/', function()
     winblend = 10,
     previewer = false,
   })
-end, { desc = '[/] Buscar en el buffer actual' })
+end, { desc = '[/] Search in current buffer' })
 
 vim.keymap.set('n', '<leader>s/', function()
   builtin.live_grep { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }
-end, { desc = '[S]earch [/] en archivos abiertos' })
+end, { desc = '[S]earch [/] in open files' })
 
 vim.keymap.set('n', '<leader>sn', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config', follow = true }
 end, { desc = '[S]earch [N]eovim files' })
 
--- Git: archivos con cambios, historial.
-vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus (pendientes de commit)' })
+vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus (uncommitted)' })
 vim.keymap.set('n', '<leader>gL', builtin.git_commits, { desc = '[G]it [L]og (repo)' })
-vim.keymap.set('n', '<leader>gl', builtin.git_bcommits, { desc = '[G]it [l]og del archivo actual' })
+vim.keymap.set('n', '<leader>gl', builtin.git_bcommits, { desc = '[G]it [l]og of current file' })
 
--- Navegacion de proyectos grandes.
-vim.keymap.set('n', '<leader>sG', builtin.git_files, { desc = '[S]earch [G]it files (solo versionados)' })
+vim.keymap.set('n', '<leader>sG', builtin.git_files, { desc = '[S]earch [G]it files (tracked only)' })
 vim.keymap.set('n', '<leader>sT', builtin.treesitter, { desc = '[S]earch [T]reesitter symbols' })

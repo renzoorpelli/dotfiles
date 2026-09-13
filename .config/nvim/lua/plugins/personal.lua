@@ -1,10 +1,6 @@
--- Personalizaciones: Neovide, cursor (smear) y scroll (neoscroll).
-
--- smear-cursor: animacion de cursor en Neovide.
 vim.pack.add { 'https://github.com/sphamba/smear-cursor.nvim' }
 require('smear_cursor').setup {}
 
--- neoscroll: scroll suave en terminal (en Neovide ya lo maneja la GUI).
 if vim.g.neovide == nil then
   vim.pack.add { 'https://github.com/karb94/neoscroll.nvim' }
   require('neoscroll').setup {}
@@ -24,7 +20,6 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0.1
   vim.g.neovide_cursor_trail_size = 0.7
 
-  -- Fuerza el fondo al del terminal (ghostty) para que no lo pise el tema.
   local ghostty_bg = 0x0d0c0c
   local function apply_bg()
     local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
@@ -34,7 +29,6 @@ if vim.g.neovide then
   vim.api.nvim_create_autocmd('ColorScheme', { callback = apply_bg })
   apply_bg()
 
-  -- Zoom con Ctrl +/-.
   local scale = 1.0
   local function zoom(factor)
     scale = math.max(0.5, math.min(3.0, scale * factor))

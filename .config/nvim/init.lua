@@ -1,20 +1,10 @@
--- Config estilo kickstart, modularizado.
---
--- Gestor de plugins: vim.pack (nativo de Neovim 0.12+, sin lazy.nvim).
---   - Ver estado / actualizar:  :lua vim.pack.update()
---   - Ver ayuda:                :help vim.pack
---
--- Los plugins viven en lua/plugins/*.lua. Las opciones y keymaps en lua/config/.
-
 vim.loader.enable()
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Neovide usa "UbuntuSansMono Nerd Font"
 vim.g.have_nerd_font = true
 
--- Hooks de build para plugins con codigo nativo o pasos post-instalacion.
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name = ev.data.spec.name
@@ -25,8 +15,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
     local function run(cmd)
       local result = vim.system(cmd, { cwd = path }):wait()
       if result.code ~= 0 then
-        local output = (result.stderr ~= '' and result.stderr) or result.stdout or 'sin output'
-        vim.notify(('Build fallo para %s:\n%s'):format(name, output), vim.log.levels.ERROR)
+        local output = (result.stderr ~= '' and result.stderr) or result.stdout or 'no output'
+        vim.notify(('Build failed for %s:\n%s'):format(name, output), vim.log.levels.ERROR)
       end
     end
 

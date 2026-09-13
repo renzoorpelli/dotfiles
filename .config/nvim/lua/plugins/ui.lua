@@ -1,5 +1,3 @@
--- UI y calidad de vida: guess-indent, gitsigns, which-key, todo-comments y mini.nvim.
-
 vim.pack.add { 'https://github.com/NMAC427/guess-indent.nvim' }
 require('guess-indent').setup {}
 
@@ -20,7 +18,7 @@ gitsigns.setup {
       else
         gitsigns.nav_hunk 'next'
       end
-    end, { desc = 'Siguiente cambio git', buf = bufnr })
+    end, { desc = 'Next git change', buf = bufnr })
 
     vim.keymap.set('n', '[c', function()
       if vim.wo.diff then
@@ -28,7 +26,7 @@ gitsigns.setup {
       else
         gitsigns.nav_hunk 'prev'
       end
-    end, { desc = 'Cambio git anterior', buf = bufnr })
+    end, { desc = 'Previous git change', buf = bufnr })
 
     vim.keymap.set('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'git [s]tage hunk', buf = bufnr })
     vim.keymap.set('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'git [r]eset hunk', buf = bufnr })
@@ -39,10 +37,10 @@ gitsigns.setup {
     vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk', buf = bufnr })
     vim.keymap.set('n', '<leader>hi', gitsigns.preview_hunk_inline, { desc = 'git preview hunk [i]nline', buf = bufnr })
     vim.keymap.set('n', '<leader>hb', function() gitsigns.blame_line { full = true } end, { desc = 'git [b]lame line', buf = bufnr })
-    vim.keymap.set('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff contra el index', buf = bufnr })
-    vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis '~' end, { desc = 'git [D]iff contra el ultimo commit', buf = bufnr })
-    vim.keymap.set('n', '<leader>hQ', function() gitsigns.setqflist 'all' end, { desc = 'git hunk [Q]uickfix (todo el repo)', buf = bufnr })
-    vim.keymap.set('n', '<leader>hq', gitsigns.setqflist, { desc = 'git hunk [q]uickfix (este archivo)', buf = bufnr })
+    vim.keymap.set('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against the index', buf = bufnr })
+    vim.keymap.set('n', '<leader>hD', function() gitsigns.diffthis '~' end, { desc = 'git [D]iff against the last commit', buf = bufnr })
+    vim.keymap.set('n', '<leader>hQ', function() gitsigns.setqflist 'all' end, { desc = 'git hunk [Q]uickfix (whole repo)', buf = bufnr })
+    vim.keymap.set('n', '<leader>hq', gitsigns.setqflist, { desc = 'git hunk [q]uickfix (this file)', buf = bufnr })
     vim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git [b]lame', buf = bufnr })
     vim.keymap.set('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = '[T]oggle git [w]ord diff', buf = bufnr })
     vim.keymap.set({ 'o', 'x' }, 'ih', gitsigns.select_hunk, { desc = 'text object [i]nside [h]unk', buf = bufnr })
@@ -66,7 +64,6 @@ require('which-key').setup {
 vim.pack.add { 'https://github.com/folke/todo-comments.nvim' }
 require('todo-comments').setup { signs = false }
 
--- mini.nvim: iconos, textobjects, surround y statusline.
 vim.pack.add { 'https://github.com/nvim-mini/mini.nvim' }
 
 if vim.g.have_nerd_font then
@@ -75,7 +72,6 @@ if vim.g.have_nerd_font then
 end
 
 require('mini.ai').setup {
-  -- Evita conflicto con la seleccion incremental de Neovim >= 0.12.
   mappings = {
     around_next = 'aa',
     inside_next = 'ii',
@@ -85,9 +81,8 @@ require('mini.ai').setup {
 
 require('mini.surround').setup()
 
--- Explorador de archivos: Snacks (el que usa LazyVim).
 vim.pack.add { 'https://github.com/folke/snacks.nvim' }
 require('snacks').setup { explorer = {} }
 local root = require('config.util').root
-vim.keymap.set('n', '<leader>e', function() require('snacks').explorer { cwd = root() } end, { desc = 'Explorador (raiz del proyecto)' })
-vim.keymap.set('n', '<leader>E', function() require('snacks').explorer() end, { desc = 'Explorador (cwd)' })
+vim.keymap.set('n', '<leader>e', function() require('snacks').explorer { cwd = root() } end, { desc = 'Explorer (project root)' })
+vim.keymap.set('n', '<leader>E', function() require('snacks').explorer() end, { desc = 'Explorer (cwd)' })
