@@ -29,6 +29,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.hl.on_yank() end,
 })
 
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  desc = 'Reload files changed on disk',
+  callback = function()
+    if vim.o.buftype ~= 'nofile' then vim.cmd('checktime') end
+  end,
+})
+
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
 vim.keymap.set('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Previous buffer' })
@@ -70,15 +77,44 @@ vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Close window', remap = tru
 vim.keymap.set('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New file' })
 vim.keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
-local function open_terminal()
+local function open_terminal(cmd, cwd)
   vim.cmd.vnew()
-  vim.cmd.term()
+  if cmd then
+    vim.fn.termopen(cmd, { cwd = cwd })
+  else
+    vim.cmd.term()
+  end
   vim.cmd.wincmd 'J'
   vim.api.nvim_win_set_height(0, 15)
 end
 vim.keymap.set({ 'n', 't' }, '<C-/>', open_terminal, { desc = 'Terminal' })
 vim.keymap.set({ 'n', 't' }, '<C-_>', open_terminal, { desc = 'Terminal' })
 vim.keymap.set('n', '<leader>ft', open_terminal, { desc = 'Terminal' })
+
+local runners = {
+  python = function(file) return 'python3 ' .. file end,
+  go = function(file) return 'go run ' .. file end,
+  javascript = function(file) return 'node ' .. file end,
+  sh = function(file) return 'bash ' .. file end,
+  lua = function(file) return 'luajit ' .. file end,
+  rust = function(file, name)
+    local out = vim.fn.shellescape('/tmp/' .. name .. '.run')
+    return ('rustc %s -o %s && %s'):format(file, out, out)
+  end,
+}
+vim.keymap.set('n', '<leader>r', function()
+  local runner = runners[vim.bo.filetype]
+  if not runner then
+    vim.notify('No runner for ' .. (vim.bo.filetype ~= '' and vim.bo.filetype or 'this file'), vim.log.levels.WARN)
+    return
+  end
+  if vim.fn.expand '%:p' == '' then
+    vim.notify('Save the file first', vim.log.levels.WARN)
+    return
+  end
+  vim.cmd.write()
+  open_terminal(runner(vim.fn.shellescape(vim.fn.expand '%:t'), vim.fn.expand '%:t:r'), vim.fn.expand '%:p:h')
+end, { desc = 'Run file in terminal' })
 
 local compilers = {
   go = { cmd = 'go build', efm = 'go' },
