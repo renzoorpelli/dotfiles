@@ -62,6 +62,9 @@ alias oo "open ."
 if type -q codium
     alias cc "codium ."
 end
+if type -q neovide
+    alias v "neovide --fork --reuse-instance ."
+end
 
 # Git shortcuts
 alias g git
