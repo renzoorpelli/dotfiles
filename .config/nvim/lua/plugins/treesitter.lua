@@ -3,6 +3,7 @@ vim.pack.add { { src = 'https://github.com/nvim-treesitter/nvim-treesitter', ver
 local parsers = {
   'bash',
   'c',
+  'c_sharp',
   'cpp',
   'diff',
   'go',

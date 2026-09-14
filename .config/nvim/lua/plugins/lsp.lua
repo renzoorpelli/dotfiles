@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local servers = {
   clangd = {},
   gopls = {},
-  pyright = {},
+  roslyn_ls = {},
   rust_analyzer = {},
   ts_ls = {},
   stylua = {},
@@ -90,6 +90,11 @@ for name, server in pairs(servers) do
   vim.lsp.enable(name)
 end
 
+vim.lsp.config('ruff', { cmd = { 'uvx', 'ruff', 'server' } })
+vim.lsp.enable 'ruff'
+vim.lsp.config('ty', { cmd = { 'uvx', 'ty', 'server' } })
+vim.lsp.enable 'ty'
+
 vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
 require('conform').setup {
   notify_on_error = false,
@@ -97,6 +102,7 @@ require('conform').setup {
   formatters_by_ft = {
     lua = { 'stylua' },
     sh = { 'shfmt' },
+    python = { 'ruff_organize_imports', 'ruff_format' },
   },
 }
 
