@@ -89,3 +89,7 @@ require('snacks').setup {
 local root = require('config.util').root
 vim.keymap.set('n', '<leader>e', function() require('snacks').explorer { cwd = root() } end, { desc = 'Explorer (project root)' })
 vim.keymap.set('n', '<leader>E', function() require('snacks').explorer() end, { desc = 'Explorer (cwd)' })
+
+vim.pack.add { 'https://github.com/ryanoasis/vim-devicons' }
+vim.pack.add { 'https://github.com/preservim/nerdtree' }
+vim.keymap.set('n', '-', '<cmd>NERDTreeToggle<CR>', { desc = 'NERDTree toggle' })

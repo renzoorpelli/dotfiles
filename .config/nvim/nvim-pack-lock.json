@@ -55,6 +55,10 @@
       "rev": "ff483051a47e27d84bdef47703538df1ed9f4a47",
       "src": "https://github.com/rose-pine/neovim"
     },
+    "nerdtree": {
+      "rev": "690d061b591525890f1471c6675bcb5bdc8cdff9",
+      "src": "https://github.com/preservim/nerdtree"
+    },
     "nvim-lspconfig": {
       "rev": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457",
       "src": "https://github.com/neovim/nvim-lspconfig"
@@ -95,6 +99,10 @@
     "vague.nvim": {
       "rev": "f9060fdaf7b20f68575d6f8214da6f1cf0c72825",
       "src": "https://github.com/vague-theme/vague.nvim"
+    },
+    "vim-devicons": {
+      "rev": "71f239af28b7214eebb60d4ea5bd040291fb7e33",
+      "src": "https://github.com/ryanoasis/vim-devicons"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
