@@ -3,7 +3,7 @@ vim.loader.enable()
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
