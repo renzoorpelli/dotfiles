@@ -28,7 +28,6 @@ History/
 .npmrc
 .netrc
 .aws/
-**/fish_variables
 **/*.db
 **/*.sqlite
 **/*.sqlite3

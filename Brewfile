@@ -5,7 +5,6 @@ tap "hashicorp/tap"
 # Shell and terminal tools
 brew "curl"
 brew "fd"
-brew "fish"
 brew "git"
 brew "tmux"
 
@@ -38,7 +37,6 @@ brew "llama.cpp"
 brew "pwgen"
 brew "ripgrep"
 brew "ruff"
-brew "starship"
 brew "yazi"
 brew "yq"
 brew "zig"
@@ -49,11 +47,9 @@ brew "hashicorp/tap/terraform"
 # AI coding agents
 brew "pi-coding-agent"
 brew "anomalyco/tap/opencode"
-cask "claude-code"
 
 # Git applications
 cask "gitbutler"
-cask "kaleidoscope"
 
 # Terminal and desktop applications
 cask "ghostty"

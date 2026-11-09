@@ -1,24 +1,23 @@
-shell-integration = fish
+shell-integration = zsh
 
 # >>> themes
 #theme  = flexoki dark
 #theme  = Solarized Dark Higher Contrast
 #theme  = flexoki dark
 #theme  = Solarized Dark Patched
-#theme  = One Dark
 #theme 	= One Double Dark
 #theme  = gruvbox dark
 #theme  = Vesper
 #theme  = Jellybeans
 #theme  = Nvim Dark
 #theme = Vesper
-theme = Rose Pine
+#theme = Rose Pine
+theme = Ultra Dark
 # <<< themes
 
-#background = #031219  -- Solarized
-background = #0d0c0c
-background-opacity = 0.95
-#background-blur-radius = 20
+#background = #031219  
+#background = #0d0c0c
+background-blur-radius = 20
 
 cursor-style = block
 cursor-style-blink = true

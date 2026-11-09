@@ -125,7 +125,7 @@ sync_path() {
 
 mkdir -p "$HOME/.config"
 
-sync_path "$SCRIPT_DIR/.config/fish" "$HOME/.config/fish"
+sync_path "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 sync_path "$SCRIPT_DIR/.config/ghostty" "$HOME/.config/ghostty"
 sync_path "$SCRIPT_DIR/.config/VSCodium/User/settings.json" \
     "$HOME/Library/Application Support/VSCodium/User/settings.json"
@@ -151,18 +151,18 @@ if [ -L "$HOME/Brewfile" ]; then
     rm "$HOME/Brewfile"
 fi
 
-fish_path=$(command -v fish || true)
-if [ -n "$fish_path" ]; then
-    if ! grep -qF "$fish_path" /etc/shells 2>/dev/null || [ "${SHELL:-}" != "$fish_path" ]; then
-        echo "Configuring Fish as the default shell..."
+zsh_path=$(command -v zsh || true)
+if [ -n "$zsh_path" ]; then
+    if ! grep -qF "$zsh_path" /etc/shells 2>/dev/null || [ "${SHELL:-}" != "$zsh_path" ]; then
+        echo "Configuring Zsh as the default shell..."
         echo "Administrator password may be requested once."
         sudo -v
 
-        if ! grep -qF "$fish_path" /etc/shells 2>/dev/null; then
-            echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
+        if ! grep -qF "$zsh_path" /etc/shells 2>/dev/null; then
+            echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
         fi
-        if [ "${SHELL:-}" != "$fish_path" ]; then
-            sudo chsh -s "$fish_path" "$USER"
+        if [ "${SHELL:-}" != "$zsh_path" ]; then
+            sudo chsh -s "$zsh_path" "$USER"
         fi
     fi
 fi
