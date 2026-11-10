@@ -38,9 +38,18 @@ path=("$HOME/.lmstudio/bin" "$HOME/.local/bin" $path)
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 
-# Prompt: zsh's built-in promptinit theme (no external prompt program)
-autoload -Uz promptinit && promptinit && prompt adam1
-# Browse other themes with: prompt -l   (preview with: prompt -p)
+# Prompt: oh-my-zsh's robbyrussell theme, reimplemented natively
+# (colored arrow, cyan pwd, blue git:(red branch) + yellow ✗ when dirty)
+__rr_git_prompt() {
+  local branch
+  branch="$(git branch --show-current 2>/dev/null)" || return
+  [[ -z "$branch" ]] && branch="$(git rev-parse --short HEAD 2>/dev/null)" || true
+  local dirty=""
+  git status --porcelain 2>/dev/null | grep -q . && dirty=" ✗"
+  print -r -- " %F{blue}git:(%F{red}${branch}%F{blue})%F{yellow}${dirty}%f"
+}
+precmd() { GIT_PROMPT="$(__rr_git_prompt)" }
+PROMPT='%(?.%F{green}.%F{red})➜%f %F{cyan}%1~%f${GIT_PROMPT} '
 
 # direnv
 if (( $+commands[direnv] )); then
@@ -90,6 +99,14 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+# fzf key bindings and completion (no fzf-tab)
+if (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+fi
+
+# zsh-autosuggestions (fish-like suggestions)
+[[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Machine-local, untracked overrides
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

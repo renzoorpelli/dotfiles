@@ -6,6 +6,7 @@ tap "hashicorp/tap"
 brew "curl"
 brew "fd"
 brew "git"
+brew "zsh-autosuggestions"
 brew "tmux"
 
 # Editors
