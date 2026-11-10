@@ -49,7 +49,8 @@ __rr_git_prompt() {
   print -r -- " %F{blue}git:(%F{red}${branch}%F{blue})%F{yellow}${dirty}%f"
 }
 precmd() { GIT_PROMPT="$(__rr_git_prompt)" }
-PROMPT='%(?.%F{green}.%F{red})➜%f %F{cyan}%1~%f${GIT_PROMPT} '
+setopt PROMPT_SUBST
+PROMPT=' %(?.%F{green}.%F{red})➜%f %F{cyan}%1~%f${GIT_PROMPT} '
 
 # direnv
 if (( $+commands[direnv] )); then
