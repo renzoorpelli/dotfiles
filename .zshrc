@@ -79,6 +79,9 @@ yy() {
   rm -f -- "$tmp"
 }
 
+# Listing shortcuts
+alias ll="ls -lah"
+
 # Application shortcuts
 alias o=open
 alias oo="open ."
