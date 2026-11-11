@@ -38,3 +38,14 @@ History/
 *~
 .*.swp
 .*.swo
+
+# Keys and credentials
+id_rsa
+id_ed25519
+id_ecdsa
+id_dsa
+*.secret
+secrets.yaml
+credentials.json
+config/credentials.json
+**/credentials.json
